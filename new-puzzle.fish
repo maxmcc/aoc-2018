@@ -40,3 +40,5 @@ for playground in *.playground
 end
 echo >> $workspace '</Workspace>'
 
+
+xed ./AdventOfCode.xcworkspace
