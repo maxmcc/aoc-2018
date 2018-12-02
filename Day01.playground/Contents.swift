@@ -27,32 +27,27 @@ extension Collection {
 }
 
 
-extension Collection where Element == Int {
+func main() {
+    let inputURL = Bundle.main.url(forResource: "Input", withExtension: "txt")!
+    let inputString = try! String(contentsOf: inputURL, encoding: .utf8)
+    let input = inputString.split(separator: "\n").compactMap { Int($0) }
+
     
-    func sum() -> Int {
-        return self.reduce(0, +)
+    print("Part 1:", input.reduce(0, +))
+
+
+    var currentSum = 0
+    var previouslySeenSums = Set<Int>()
+    
+    for value in input.repeating() {
+        currentSum += value
+        if previouslySeenSums.contains(currentSum) {
+            print("Part 2:", currentSum)
+            return
+        } else {
+            previouslySeenSums.insert(currentSum)
+        }
     }
 }
 
-
-let inputURL = Bundle.main.url(forResource: "Input", withExtension: "txt")!
-let inputString = try String(contentsOf: inputURL, encoding: .utf8)
-let input = inputString.split(separator: "\n").compactMap { Int($0) }
-
-
-input.sum()
-
-
-var currentSum = 0
-var previouslySeenSums = Set<Int>()
-
-for value in input.repeating() {
-    currentSum += value
-    if previouslySeenSums.contains(currentSum) {
-        break
-    } else {
-        previouslySeenSums.insert(currentSum)
-    }
-}
-
-currentSum
+main()

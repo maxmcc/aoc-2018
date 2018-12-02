@@ -18,38 +18,42 @@ struct StringSplit: Hashable {
 }
 
 
-let inputURL = Bundle.main.url(forResource: "Input", withExtension: "txt")!
-let inputString = try String(contentsOf: inputURL, encoding: .utf8)
-let inputLines = inputString.split(separator: "\n")
+func main() {
+    let inputURL = Bundle.main.url(forResource: "Input", withExtension: "txt")!
+    let inputString = try! String(contentsOf: inputURL, encoding: .utf8)
+    let inputLines = inputString.split(separator: "\n")
 
 
-var countWithTwoCharacters = 0
-var countWithThreeCharacters = 0
+    var countWithTwoCharacters = 0
+    var countWithThreeCharacters = 0
 
-for inputLine in inputLines {
-    let counts = inputLine.elementCounts()
-    if counts.values.contains(2) {
-        countWithTwoCharacters += 1
+    for inputLine in inputLines {
+        let counts = inputLine.elementCounts()
+        if counts.values.contains(2) {
+            countWithTwoCharacters += 1
+        }
+        if counts.values.contains(3) {
+            countWithThreeCharacters += 1
+        }
     }
-    if counts.values.contains(3) {
-        countWithThreeCharacters += 1
-    }
-}
 
-countWithTwoCharacters * countWithThreeCharacters
-
-
-var previouslySeen = Set<StringSplit>()
-outer: for inputLine in inputLines {
-    for index in inputLine.indices {
-        let prefix = inputLine[..<index]
-        let suffix = inputLine[inputLine.index(after: index)...]
-        let split = StringSplit(prefix: prefix, suffix: suffix)
-        if previouslySeen.contains(split) {
-            print(split.prefix + split.suffix)
-            break outer
-        } else {
-            previouslySeen.insert(split)
+    print("Part 1:", countWithTwoCharacters * countWithThreeCharacters)
+    
+    
+    var previouslySeen = Set<StringSplit>()
+    for line in inputLines {
+        for index in line.indices {
+            let prefix = line[..<index]
+            let suffix = line[line.index(after: index)...]
+            let split = StringSplit(prefix: prefix, suffix: suffix)
+            if previouslySeen.contains(split) {
+                print("Part 2:", split.prefix + split.suffix)
+                return
+            } else {
+                previouslySeen.insert(split)
+            }
         }
     }
 }
+
+main()
