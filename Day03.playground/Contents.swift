@@ -3,17 +3,15 @@ import Foundation
 extension Sequence {
     
     func count(where predicate: (Element) throws -> Bool) rethrows -> Int {
-        var count = 0
-        for e in self {
-            if try predicate(e) {
-                count += 1
+        return try self.reduce(into: 0) { runningTotal, element in
+            if try predicate(element) {
+                runningTotal += 1
             }
         }
-        return count
     }
 }
 
-public struct Claim {
+struct Claim {
     var id: Int
     var horizontalExtent: Range<Int>
     var verticalExtent: Range<Int>
@@ -56,8 +54,8 @@ for claim in claims {
     }
 }
 
-let totalOverlapped = squares.reduce(0) { count, row in
-    count + row.count { cell in cell.count > 1 }
+let totalOverlapped = squares.reduce(0) { runningTotal, row in
+    runningTotal + row.count(where: { $0.count > 1 })
 }
 
 print("Part 1:", totalOverlapped)
