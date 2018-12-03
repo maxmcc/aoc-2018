@@ -54,8 +54,10 @@ for claim in claims {
     }
 }
 
-let totalOverlapped = squares.reduce(0) { runningTotal, row in
-    runningTotal + row.count(where: { $0.count > 1 })
+let totalOverlapped = squares.reduce(into: 0) { runningTotal, row in
+    runningTotal += row.count { impingingClaims in
+        impingingClaims.count > 1
+    }
 }
 
 print("Part 1:", totalOverlapped)
