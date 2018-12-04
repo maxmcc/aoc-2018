@@ -21,15 +21,11 @@ echo > $playground/contents.xcplayground '<?xml version="1.0" encoding="UTF-8" s
 
 echo > $playground/Contents.swift 'import Foundation
 
-func main() {
-    let inputURL = Bundle.main.url(forResource: "Input", withExtension: "txt")!
-    let inputString = try! String(contentsOf: inputURL, encoding: .utf8)
-    let inputLines = inputString.split(separator: "\n")
+let inputURL = Bundle.main.url(forResource: "Input", withExtension: "txt")!
+let inputString = try! String(contentsOf: inputURL, encoding: .utf8)
+let inputLines = inputString.split(separator: "\n")
 
-
-}
-
-main()'
+'
 
 
 set workspace ./AdventOfCode.xcworkspace/contents.xcworkspacedata
