@@ -4,4 +4,5 @@
 <FileRef location="group:Day02.playground"></FileRef>
 <FileRef location="group:Day03.playground"></FileRef>
 <FileRef location="group:Day04.playground"></FileRef>
+<FileRef location="group:Day05.playground"></FileRef>
 </Workspace>
